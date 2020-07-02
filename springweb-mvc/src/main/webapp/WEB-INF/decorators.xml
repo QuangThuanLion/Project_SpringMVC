@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/decorators">
+
+	<!-- apply web template -->
+	<decorator name="web" page="web.jsp">
+		<pattern>/trang-chu*</pattern>
+	</decorator>
+
+	<!-- apply admin template -->
+	<decorator name="admin" page="admin.jsp">
+		<pattern>/quan-tri*</pattern>
+	</decorator>
+	
+	<!-- apply products template -->
+	<decorator name="products" page="web.jsp">
+		<pattern>/san-pham</pattern>
+	</decorator>
+	
+	<!-- apply service template -->
+	<decorator name="service" page="web.jsp">
+		<pattern>/dich-vu</pattern>
+	</decorator>
+	
+	<!-- apply contact template -->
+	<decorator name="contact" page="web.jsp">
+		<pattern>/lien-he</pattern>
+	</decorator>
+	
+	<decorator name="about" page="web.jsp">
+		<pattern>/thong-tin</pattern>
+	</decorator>
+	
+</decorators>
