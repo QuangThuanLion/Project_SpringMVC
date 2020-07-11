@@ -1,0 +1,53 @@
+package com.laptrinhjavaweb.service.impl;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.laptrinhjavaweb.converter.CategoryConverter;
+import com.laptrinhjavaweb.dto.CategoryDTO;
+import com.laptrinhjavaweb.entity.CategoryEntity;
+import com.laptrinhjavaweb.repository.CategoryRepository;
+import com.laptrinhjavaweb.service.ICategoryService;
+
+@Service
+public class CategoryService implements ICategoryService{
+
+	@Autowired CategoryRepository categoryRepository;
+	
+	@Autowired CategoryConverter categoryConverter;
+	
+	@Override
+	public List<CategoryDTO> findAll(Pageable pageable) {
+		CategoryDTO categoryDTO = null;
+		List<CategoryDTO> result = new ArrayList<>();
+		List<CategoryEntity> categoryEntities = categoryRepository.findAll(pageable).getContent();
+		for (CategoryEntity item : categoryEntities) {
+			categoryDTO = categoryConverter.toCategoryDTO(item);
+			result.add(categoryDTO);
+		}
+		return result;
+	}
+
+	@Override
+	public int getTotalItem() {
+		return (int)categoryRepository.count();
+	}
+
+	@Override
+	public Map<String,String> findAll() {
+		Map<String,String> result = new HashMap<>();
+		List<CategoryEntity> categoryEntities = categoryRepository.findAll();
+		for (CategoryEntity item : categoryEntities) {
+			CategoryDTO categoryDTO = categoryConverter.toCategoryDTO(item);
+			result.put(categoryDTO.getCode(), categoryDTO.getName());
+		}
+		return result;
+	}
+	
+}

@@ -1,0 +1,77 @@
+package com.laptrinhjavaweb.dto;
+
+import java.util.Date;
+
+public class NewDTO {
+
+	private Long id;
+	private Date createdDate;
+	private String createdBy;
+	private Date modifiedDate;
+	private String modifiedBy;
+	private String content;
+	private String shortdescription;
+	private String thumbnail;
+	private String title;
+	private Long categoryId;
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getShortdescription() {
+		return shortdescription;
+	}
+	public void setShortdescription(String shortdescription) {
+		this.shortdescription = shortdescription;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	
+}

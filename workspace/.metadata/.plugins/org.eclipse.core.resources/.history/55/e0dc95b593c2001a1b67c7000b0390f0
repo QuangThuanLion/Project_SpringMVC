@@ -1,0 +1,12 @@
+package com.laptrinhjavaweb.constant;
+
+public class SystemConstant {
+
+	final static String INSERT_SUCCESS = "insert_success";
+	final static String INSERT_ERROR = "insert_error";
+	final static String UPDATE_SUCCESS = "update_success";
+	final static String UPDATE_ERROR = "update_error";
+	final static String DELETE_SUCCESS = "delete_success";
+	final static String DELETE_ERROR = "delete_error";
+	
+}

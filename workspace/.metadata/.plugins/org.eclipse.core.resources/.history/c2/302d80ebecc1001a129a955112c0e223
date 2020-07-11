@@ -1,0 +1,18 @@
+package com.laptrinhjavaweb.api.admin;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.laptrinhjavaweb.dto.NewDTO;
+
+@RestController(value = "NewAPIOfAdmin")
+public class NewAPI {
+	
+	@PostMapping("/api/new")
+	public NewDTO createNew(@RequestBody NewDTO newDTO) {
+		NewDTO newDTO1 = new NewDTO();
+		return newDTO1;
+	}
+
+}

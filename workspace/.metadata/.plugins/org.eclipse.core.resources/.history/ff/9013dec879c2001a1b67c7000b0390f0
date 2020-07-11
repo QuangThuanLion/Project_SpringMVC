@@ -1,0 +1,32 @@
+package com.laptrinhjavaweb.api.admin;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.laptrinhjavaweb.dto.NewDTO;
+import com.laptrinhjavaweb.service.INewService;
+
+@RestController(value = "NewAPIOfAdmin")
+public class NewAPI {
+	
+	//restController  = ResponeBody + Controller
+	
+	@Autowired
+	private INewService iNewService;
+	
+	@PostMapping("/api/new")
+	public NewDTO createNew(@RequestBody NewDTO newDTO) {
+		NewDTO dto = iNewService.save(newDTO);
+		return dto;
+	}
+	
+	@PutMapping("/api/new")
+	public NewDTO updateNew(@RequestBody NewDTO newDTO) {
+		NewDTO dto = new NewDTO();
+		return dto;
+	}
+
+}

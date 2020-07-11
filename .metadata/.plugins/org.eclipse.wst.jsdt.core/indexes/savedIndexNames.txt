@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+D:\APTECH\SELF-LEARING-JAVA\JAVA-WEB-07-MONTH-2020\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2485685578.index
-3646470178.index
-247386945.index
-1830215299.index
-395251894.index
-1839172021.index
-716439101.index

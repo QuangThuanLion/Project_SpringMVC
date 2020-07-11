@@ -1,0 +1,13 @@
+package com.laptrinhjavaweb.dto;
+
+import java.util.Date;
+
+public class AbstractDTO {
+
+	private Long id;
+	private Date createdDate;
+	private String createdBy;
+	private Date modifiedDate;
+	private String modifiedBy;
+	
+}

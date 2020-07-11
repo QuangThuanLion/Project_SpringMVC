@@ -1,0 +1,13 @@
+package com.laptrinhjavaweb.converter;
+
+import com.laptrinhjavaweb.dto.NewDTO;
+import com.laptrinhjavaweb.entity.NewEntity;
+
+public class NewConverter {
+
+	public NewDTO toDTO(NewEntity newEntity) {
+		NewDTO newDTO = new NewDTO();
+		return null;
+	}
+	
+}

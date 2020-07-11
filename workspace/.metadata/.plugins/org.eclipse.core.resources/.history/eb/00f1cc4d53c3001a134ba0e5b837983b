@@ -1,0 +1,222 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/common/taglib.jsp" %>
+<c:url var="newURL" value='/quan-tri/bai-viet/danh-sach'/>
+<c:url var="editNewURL" value='/quan-tri/bai-viet/chinh-sua'/>
+<c:url var="newAPI" value='/api/new'/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Danh sách - Chỉnh sửa bài viết</title>
+</head>
+<body>
+	
+	<div class="main-content">
+				<div class="main-content-inner">
+					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">Trang chủ</a>
+							</li>
+
+							<li>
+								<a href="#">Bài viết</a>
+							</li>
+							<li class="active">chỉnh sửa</li>
+						</ul><!-- /.breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- /.nav-search -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+								Bài viết
+								<c:if test="${not empty newDTO.id}">
+									<small>
+										<i class="ace-icon fa fa-angle-double-right"></i>
+										Cập nhật bài viết
+									</small>
+								</c:if>
+								<c:if test="${empty newDTO.id}">
+									<small>
+										<i class="ace-icon fa fa-angle-double-right"></i>
+										Thêm mới bài viết
+									</small>
+								</c:if>					
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+							
+								<c:if test="${not empty message}">
+									<div class="alert alert-${alert}" role="alert">
+									  	${message}
+									</div>
+								</c:if>
+									
+								<!-- PAGE CONTENT BEGINS -->
+								<form:form id="formSubmit" class="form-horizontal" role="form" modelAttribute="newDTO">
+								
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="categoryCode"> Thể loại </label>
+										<div class="col-sm-9">
+											<form:select path="categoryCode" id="categoryCode" >
+												<form:option value="" label="--chọn thể loại--" />
+												<form:options items="${categories}"/>
+											</form:select>
+										</div>
+									</div>		
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="title"> Tên bài viết </label>
+										<div class="col-sm-9">
+											<form:input id="title" path="title" class="col-xs-10 col-sm-5" placeholder="tên bài viết" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="thumbnail"> Ảnh đại diện </label>
+										<div class="col-sm-9">
+											<form:input type="file"  path="thumbnail" class="col-xs-10 col-sm-5" id="thumbnail" />
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="shortdescription"> Mô tả ngắn </label>
+										<div class="col-sm-9">
+											<form:textarea path="shortdescription" cols="" rows="5" cssClass="form-control" placeholder="Mô tả ngắn" id="shortdescription" />
+										</div>
+										<!-- chỉnh cao thấp thì có 2 kiểu - nếu đẻ là cssClass thì nó full khung và theo reponsive - còn nếu tùy chỉnh
+										theo cols rows - hoặc style="width:712px;height:100px;" thì nó không tùy chỉnh theo reponsive - còn nếu để class
+										là cssClass và đi kèm với cols và rows thì có thể tùy chỉnh theo reponsive ok-->
+									</div>
+									
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="content"> Nội dung </label>
+										<div class="col-sm-9">
+											<form:textarea path="content" placeholder="Nội dung" cols="" rows="10" cssClass="form-control" id="content" />
+										</div>
+									</div>
+									<form:hidden path="id" id="newId" />													
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<c:if test="${not empty newDTO.id}">
+												<button class="btn btn-info" type="button" id="btnAddOrUpdate">
+													<i class="ace-icon fa fa-check bigger-110"></i>
+													Cập nhật bài viết
+												</button>
+											</c:if>
+											<c:if test="${empty newDTO.id}">
+												<button class="btn btn-info" type="button" id="btnAddOrUpdate">
+													<i class="ace-icon fa fa-check bigger-110"></i>
+													Thêm mới bài viết
+												</button>
+											</c:if>
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn btn-info" id="btnReset">
+													<i class="ace-icon fa fa-undo bigger-110" ></i>
+													Làm mới
+											</button>
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="button" onclick="btnCancel()">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+													Hủy bỏ
+											</button>
+										</div>
+									</div>
+								</form:form>
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>
+	</div><!-- /.main-content -->
+	
+	
+	<script type="text/javascript">
+		
+		var id = $("#newId").val();
+		var editor = "";
+		
+		$(document).ready(function(){
+			editor = CKEDITOR.replace('content');
+		});
+	
+		$("#btnAddOrUpdate").click(function(e){
+			e.preventDefault();
+			var data = {};
+			var formData = $("#formSubmit").serializeArray();
+			$.each(formData, function(i,v){
+				data[""+v.name+""] = v.value;
+			});
+			data["content"] = editor.getData();
+			if(id == ""){
+				addNew(data);
+			}else{
+				updateNew(data);
+			}
+			
+		});
+		
+		function addNew(data){
+			$.ajax({
+				url: '${newAPI}',
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType: 'json',
+				success: function(result){
+					window.location.href = "${editNewURL}?id="+result.id+"&message=insert_success";
+				},
+				error: function(error){
+					window.location.href = "${newURL}?page=1&limit=3&message=insert_error";
+				}
+			});
+		}
+		
+		function updateNew(data){
+			$.ajax({
+				url: '${newAPI}',
+				type: 'PUT',
+				contentType: 'application/json',
+				data: JSON.stringify(data),
+				dataType:'json',
+				success: function(result){
+					window.location.href = "${editNewURL}?id="+result.id+"&message=update_success";
+				},
+				error: function(error){
+					window.location.href = "${editNewURL}?id="+id+"&message=update_error";
+				}
+			});
+		}
+		
+		$(document).ready(function(){
+			$('#btnReset').click(function(){
+				document.forms[0].reset();
+			});
+		});
+		
+		/* Dưới đây là 2 cách để thực hiện lên button - có thể gọi hàm ngay trên button hoặc cho nó
+		1 id sau đó viết hàm cho nó ở dưới này*/
+		function btnCancel(){
+			window.location.href = "${newURL}?page=1&limit=3";
+		}
+		
+		$("#btnCancel").click(function(e){
+			e.preventDefault();
+			window.location.href = "${newURL}?page=1&limit=3";
+		});
+	
+	</script>
+	
+</body>
+</html>

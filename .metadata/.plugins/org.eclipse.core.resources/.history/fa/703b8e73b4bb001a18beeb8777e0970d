@@ -1,3 +1,0 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="dec" uri="http://www.opensymphony.com/sitemesh/decorator" %>
-<link rel="SHORTCUT ICON" href="https://cdn.24h.com.vn/upload/icon/icon_24h.ico" type="image/x-icon">

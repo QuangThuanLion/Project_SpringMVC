@@ -1,0 +1,39 @@
+package com.laptrinhjavaweb.controller.admin;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.laptrinhjavaweb.dto.CategoryDTO;
+import com.laptrinhjavaweb.service.ICategoryService;
+
+@Controller(value = "categoryControllerOfAdmin")
+public class CategoryController {
+	
+	@Autowired ICategoryService iCategoryService;
+	
+	@RequestMapping(value = "/quan-tri/danh-muc/danh-sach", method = RequestMethod.GET)
+	public ModelAndView categoryPage(@RequestParam(value = "limit") int limit, 
+									@RequestParam(value = "page") int page) {
+		CategoryDTO categoryDTO = new CategoryDTO();
+		categoryDTO.setLimit(limit);
+		categoryDTO.setPage(page);
+		categoryDTO.setTotalItem(iCategoryService.getTotalItem());
+		int limitPage = categoryDTO.getLimit();
+		int totalItem = categoryDTO.getTotalItem();
+		ModelAndView mav = new ModelAndView("/admin/category/categories");
+		Pageable pageable = new PageRequest(page - 1, limit);
+		categoryDTO.setTotalPage((int)Math.ceil((double)totalItem/limitPage));
+		categoryDTO.setListResult(iCategoryService.findAll(pageable));
+		mav.addObject("categoryDTO", categoryDTO);
+		return mav;
+	}
+	
+	
+
+}
